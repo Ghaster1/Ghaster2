@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Troll Paneli</title>
+  <style>
+    body { font-family: sans-serif; background: #111; color: #eee; text-align: center; }
+    button { margin: 10px; padding: 15px; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>🎭 Troll Paneli</h1>
+  <p>Bir butona bas, bilgisayarda troll başlasın!</p>
+
+  <div id="buttons"></div>
+
+  <script>
+    const actions = [
+      "freeze_mouse",
+      "show_message",
+      "spam_capslock",
+      "move_mouse_circle",
+      "type_text",
+      "open_calculator",
+      "flip_screen",
+      "minimize_all",
+      "open_notepad",
+      "lock_pc"
+    ];
+
+    const server = "https://armand-sympetalous-superstoically.ngrok-free.dev";
+
+    const container = document.getElementById("buttons");
+
+    actions.forEach(action => {
+      const btn = document.createElement("button");
+      btn.textContent = action;
+      btn.onclick = () => {
+        fetch(server + "/troll", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action })
+        }).then(r => r.json()).then(console.log);
+      };
+      container.appendChild(btn);
+    });
+  </script>
+</body>
+</html>
